@@ -3,13 +3,17 @@ import java.util.*;
 class Program {
   public static final Map<Character, Character> closingToOpeningMap = 
     Map.of(')', '(', ']', '[', '}', '{');
+  public static final Set<Character> openingChars =
+    Set.of('(', '[', '{');
+  public static final Set<Character> closingChars =
+    closingToOpeningMap.keySet();
   
   public static boolean balancedBrackets(String str) {
     // Write your code here.
     Stack<Character> stack = new Stack<>();
 
     for (char ch : str.toCharArray()) {
-      if (closingToOpeningMap.containsKey(ch)) {
+      if (closingChars.contains(ch)) {
         if (stack.isEmpty()) {
           return false;
         } else {
@@ -17,8 +21,10 @@ class Program {
             return false;
           }
         }
-      } else {
+      } else if (openingChars.contains(ch)) {
         stack.push(ch);
+      } else {
+        
       }
     }
 
